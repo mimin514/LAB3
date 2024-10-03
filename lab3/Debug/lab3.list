@@ -121,7 +121,7 @@ Disassembly of section .text:
  8000180:	4603      	mov	r3, r0
  8000182:	2b00      	cmp	r3, #0
  8000184:	d103      	bne.n	800018e <fsm_for_input_processing+0x42>
-			 buttonState = BUTTON_RELEASED;
+				 buttonState = BUTTON_RELEASED;
  8000186:	4b0f      	ldr	r3, [pc, #60]	; (80001c4 <fsm_for_input_processing+0x78>)
  8000188:	2200      	movs	r2, #0
  800018a:	701a      	strb	r2, [r3, #0]

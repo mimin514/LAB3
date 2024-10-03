@@ -1,10 +1,19 @@
-14:21:50 **** Incremental Build of configuration Debug for project lab3 ****
+20:39:49 **** Incremental Build of configuration Debug for project lab3 ****
 make -j4 all 
+arm-none-eabi-gcc -o "lab3.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\BKU\Year 3\VXL-VDK\git3\lab3\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab3.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab3.elf
+ 
 arm-none-eabi-size   lab3.elf 
+arm-none-eabi-objdump -h -S  lab3.elf  > "lab3.list"
+arm-none-eabi-objcopy  -O ihex  lab3.elf  "lab3.hex"
    text	   data	    bss	    dec	    hex	filename
    7108	     20	   1668	   8796	   225c	lab3.elf
 Finished building: default.size.stdout
  
+Finished building: lab3.hex
+Finished building: lab3.list
+ 
+ 
 
-14:21:50 Build Finished. 0 errors, 0 warnings. (took 329ms)
+20:39:50 Build Finished. 0 errors, 0 warnings. (took 792ms)
 
