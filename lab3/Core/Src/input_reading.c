@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "input_reading.h"
+#include "led7.h"
 //we aim to work with more than one buttons
 #define N0_OF_BUTTONS 	1
 //timer interrupt duration is 10ms, so to pass 1 second,
@@ -33,15 +34,22 @@ void button_reading(void){
 			buttonBuffer[i] = debounceButtonBuffer1[i];
 		if(buttonBuffer[i] == BUTTON_IS_PRESSED){
 			//if a button is pressed, we start counting
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+
 			if(counterForButtonPress1s[i] <	DURATION_FOR_AUTO_INCREASING){
 				counterForButtonPress1s[i]++;
+//				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,1);
 			} else {
 				//the flag is turned on when 1 second has passed
 				//since the button is pressed.
 				flagForButtonPress1s[i] = 1;
 				//todo
+//				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8,0);
+//								HAL_Delay(2);
 			}
 		} else {
+            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET);
+
 			counterForButtonPress1s[i] = 0;
 			flagForButtonPress1s[i] = 0;
 		}
