@@ -1,0 +1,46 @@
+/*
+ * led_display.c
+ *
+ *  Created on: Sep 30, 2024
+ *      Author: User
+ */
+
+#include "led_display.h"
+
+void on_red1(){
+	HAL_GPIO_WritePin(red1, GPIO_Pin, PinState)W
+}
+
+void on_yellow1(){
+
+}
+void on_green1(){
+
+}
+void on_red2(){
+
+}
+void on_yellow2(){
+
+}
+void on_green2(){
+
+}
+void off_red1(){
+
+}
+void off_yellow1(){
+
+}
+void off_green1(){
+
+}
+void off_red2(){
+
+}
+void off_yellow2(){
+
+}
+void off_green2(){
+
+}

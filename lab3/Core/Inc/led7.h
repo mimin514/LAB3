@@ -20,5 +20,6 @@ void display2_run(void);
 
 void runled7();
 void selectpos(int pos);
-void display2number(int pos);
+void display2number(int pos,int num);
+void display_time(int num);
 #endif /* INC_LED7_H_ */

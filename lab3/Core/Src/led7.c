@@ -6,6 +6,7 @@
  */
 #include "led7.h"
 #include "input_reading.h"
+
 #define SETNUM 8
 void display1(int num){
 	switch (num){
@@ -121,35 +122,12 @@ int digit_index=0;
 const uint16_t digit_pins_1[] = {EN1_Pin, EN3_Pin};
 const uint16_t digit_pins_2[] = { EN2_Pin, EN4_Pin};
 
-void selectpos(int pos){
-	if(pos==1)
-		{
-		HAL_GPIO_WritePin(GPIOB, EN1_Pin | EN2_Pin, 1);
-
-			            display1(num--);
-			            HAL_GPIO_WritePin(GPIOB, digit_pins_1[digit_index], 0);
-
-			            digit_index++;
-			            if (digit_index >= 2) digit_index = 0;
-		}
-	else
-	{
-		HAL_GPIO_WritePin(GPIOB,  EN3_Pin, 1);
-
-			            display1(num--);
-			            HAL_GPIO_WritePin(GPIOB,  digit_pins_2[digit_index] , 0);
-
-			            digit_index++;
-			            if (digit_index >= 2) digit_index = 0;
-		}
-	if(num<=0) num=SETNUM;
-}
 int time=12;
 int digit1, digit2 ;
-void display2number(int pos){ // ok
-    digit1 = time / 10;
-    digit2 = time % 10;
-	int idx = (1-pos);
+void display2number(int pos,int num){ // ok
+    digit1 = num / 10;
+    digit2 = num % 10;
+    int idx = (1-pos);
 	if (digit_index == 0) {
 		HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_RESET);
@@ -158,25 +136,46 @@ void display2number(int pos){ // ok
 		HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_SET);
 		HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
 		display1(digit2);
-
-		    time--;
-		    if(time<=0) time=0;
 	}
 
 	digit_index++;
     if (digit_index >= 2) digit_index = 0;
 }
-void updatetime(int settime){
-    time = settime;
-    digit1 = time / 10;  // Cập nhật chữ số hàng chục
-    digit2 = time % 10;  // Cập nhật chữ số hàng đơn vị
-}
+void countdown(int pos){
+	digit1 = time / 10;
+	    digit2 = time % 10;
+		int idx = (1-pos);
+		if (digit_index == 0) {
+			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_RESET);
+			display1(digit1);
+		} else {
+			HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
+			display1(digit2);
 
+			    time--;
+			    if(time<=0) time=0;
+		}
+
+		digit_index++;
+	    if (digit_index >= 2) digit_index = 0;
+
+}
+int timered=10, timeye=8, timegreen=12;
+int timeshow[3]={10,8,12};
+//void display_time(int num){
+//	display2number(timered);
+//}
 void runled7(){
 	//selectpos(1);
 //updatetime(20);
-	button_reading();
-	display2number(1);
-	HAL_Delay(500);
+//	button_reading();
+//	display2number(1);
+//	HAL_Delay(500);
+
+//	if(button_reading()==1){
+//		led_red_blink();
+//	}
 
 }

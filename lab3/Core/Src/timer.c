@@ -51,14 +51,14 @@
  	        	//button_reading();
  	            setTimer(0, 1000);
  	        }
-
- 	        if (timer_flag[1] == 1){
- 	        	display2number(1);
- 	            setTimer(1,500);
- 	        }
- 	       if (timer_flag[2] == 1){
- 	    	 // counttime();
- 	        	            setTimer(2,1000);
- 	        	        }
+//
+// 	        if (timer_flag[1] == 1){
+// 	        	display2number(1,12);
+// 	            setTimer(1,500);
+// 	        }
+// 	       if (timer_flag[2] == 1){
+// 	    	 // counttime();
+// 	        	            setTimer(2,1000);
+// 	        	        }
  	    }
  	}
