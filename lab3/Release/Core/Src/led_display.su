@@ -1,0 +1,3 @@
+../Core/Src/led_display.c:10:6:led_red_blink	8	static
+../Core/Src/led_display.c:16:6:led_green_blink	0	static
+../Core/Src/led_display.c:21:6:led_yellow_blink	8	static

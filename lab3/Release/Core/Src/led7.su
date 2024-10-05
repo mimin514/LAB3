@@ -1,6 +1,7 @@
-../Core/Src/led7.c:9:6:display1	8	static
-../Core/Src/led7.c:118:6:selectpos.part.0	16	static
-../Core/Src/led7.c:109:6:display1to9	8	static
-../Core/Src/led7.c:114:6:selectnum	0	static
-../Core/Src/led7.c:118:6:selectpos	8	static
-../Core/Src/led7.c:138:6:runled7	0	static
+../Core/Src/led7.c:11:6:display1	8	static
+../Core/Src/led7.c:111:6:display1to9	8	static
+../Core/Src/led7.c:116:6:selectnum	0	static
+../Core/Src/led7.c:127:6:display2number	24	static
+../Core/Src/led7.c:145:6:countdown	0	static
+../Core/Src/led7.c:151:6:display1_run	8	static
+../Core/Src/led7.c:165:6:runled7	8	static

@@ -23,6 +23,7 @@
 		 case BUTTON_PRESSED:
 			 if(!is_button_pressed(0)){
 				 buttonState = BUTTON_RELEASED;
+
 			 } else {
 				 if(is_button_pressed_1s(0)){
 					 buttonState = BUTTON_PRESSED_MORE_THAN_1_SECOND;
@@ -34,6 +35,7 @@
 				 buttonState = BUTTON_RELEASED;
 			 }
 			 //todo
+			 //button_reading();
 			 break;
 	 }
  }

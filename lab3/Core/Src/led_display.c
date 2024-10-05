@@ -11,12 +11,7 @@ void led_red_blink(){
 	HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
 	HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
 	HAL_Delay(500);
-	HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
-	HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
-	HAL_Delay(500);
-	HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
-	HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
-	HAL_Delay(500);
+
 }
 void led_green_blink(){
 	HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
@@ -24,7 +19,7 @@ void led_green_blink(){
 	HAL_Delay(500);
 }
 void led_yellow_blink(){
-	HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
-	HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
+	HAL_GPIO_TogglePin(yellow1_GPIO_Port, yellow1_Pin);
+	HAL_GPIO_TogglePin(yellow2_GPIO_Port, yellow2_Pin);
 	HAL_Delay(500);
 }

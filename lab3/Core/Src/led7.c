@@ -127,20 +127,38 @@ int digit1, digit2 ;
 void display2number(int pos,int num){ // ok
     digit1 = num / 10;
     digit2 = num % 10;
-    int idx = (1-pos);
 	if (digit_index == 0) {
-		HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_2[pos], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_1[pos], GPIO_PIN_SET);
 		display1(digit1);
 	} else {
-		HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_1[pos], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_2[pos], GPIO_PIN_SET);
 		display1(digit2);
 	}
 
-	digit_index++;
-    if (digit_index >= 2) digit_index = 0;
+	digit_index=!digit_index;
+    //HAL_Delay(30);
 }
+//void countdown(int pos){
+//	digit1 = time / 10;
+//	    digit2 = time % 10;
+//		int idx = (1-pos);
+//		if (digit_index == 0) {
+//			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_SET);
+//			HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_RESET);
+//			display1(digit1);
+//		} else {
+//			HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_SET);
+//			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
+//			display1(digit2);
+//
+//
+//		digit_index++;
+//	    if (digit_index >= 2) digit_index = 0;
+//
+//}
+int num1, num2;
 void countdown(int pos){
 	digit1 = time / 10;
 	    digit2 = time % 10;
@@ -154,25 +172,34 @@ void countdown(int pos){
 			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
 			display1(digit2);
 
-			    time--;
-			    if(time<=0) time=0;
 		}
-
 		digit_index++;
 	    if (digit_index >= 2) digit_index = 0;
 
 }
-int timered=10, timeye=8, timegreen=12;
-int timeshow[3]={10,8,12};
-//void display_time(int num){
-//	display2number(timered);
-//}
+int cntred1 = 5;
+
+void display1_run(void) {
+	digit1 = cntred1 / 10;
+		    digit2 = cntred1 % 10;
+    	 if (cntred1 >= 0) 	{
+    		 display2number(1,cntred1);
+    	 }
+
+    	 cntred1--;
+    if (cntred1 < 0 ) {
+        cntred1 = 5;
+
+    }
+}
+
 void runled7(){
 	//selectpos(1);
 //updatetime(20);
 //	button_reading();
-//	display2number(1);
-//	HAL_Delay(500);
+//	display2number(1,19);
+	display1_run();
+	HAL_Delay(500);
 
 //	if(button_reading()==1){
 //		led_red_blink();

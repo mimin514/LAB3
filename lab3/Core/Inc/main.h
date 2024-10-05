@@ -79,9 +79,8 @@ void Error_Handler(void);
 #define BUTTON_2_GPIO_Port GPIOB
 #define BUTTON_3_Pin GPIO_PIN_2
 #define BUTTON_3_GPIO_Port GPIOB
-#define yellow1 GPIO_PIN_10
-#define red1_GPIO_Port GPIOB
 #define red1_Pin GPIO_PIN_10
+#define red1_GPIO_Port GPIOB
 #define yellow1_Pin GPIO_PIN_11
 #define yellow1_GPIO_Port GPIOB
 #define green1_Pin GPIO_PIN_12
@@ -100,6 +99,8 @@ void Error_Handler(void);
 #define EN3_GPIO_Port GPIOB
 #define EN4_Pin GPIO_PIN_6
 #define EN4_GPIO_Port GPIOB
+#define mode_Pin GPIO_PIN_7
+#define mode_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

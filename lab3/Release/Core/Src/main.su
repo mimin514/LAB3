@@ -1,3 +1,6 @@
-../Core/Src/main.c:113:6:SystemClock_Config	72	static,ignoring_inline_asm
-../Core/Src/main.c:66:5:main	40	static,ignoring_inline_asm
-../Core/Src/main.c:242:6:Error_Handler	0	static,ignoring_inline_asm
+../Core/Src/main.c:67:6:setTimer	0	static
+../Core/Src/main.c:75:6:timerRun	8	static
+../Core/Src/main.c:91:6:HAL_TIM_PeriodElapsedCallback	0	static
+../Core/Src/main.c:170:6:SystemClock_Config	72	static,ignoring_inline_asm
+../Core/Src/main.c:115:5:main	40	static,ignoring_inline_asm
+../Core/Src/main.c:308:6:Error_Handler	0	static,ignoring_inline_asm
