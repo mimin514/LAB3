@@ -105,7 +105,6 @@ void display1(int num){
 	}
 }
 
-
 	int counttt=0,count9=9;
 
 void display1to9(void){
@@ -123,24 +122,66 @@ const uint16_t digit_pins_1[] = {EN1_Pin, EN3_Pin};
 const uint16_t digit_pins_2[] = { EN2_Pin, EN4_Pin};
 
 int time=12;
-int digit1, digit2 ;
-void display2number(int pos,int num){ // ok
-    digit1 = num / 10;
-    digit2 = num % 10;
-	if (digit_index == 0) {
-		HAL_GPIO_WritePin(GPIOB, digit_pins_2[pos], GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOB, digit_pins_1[pos], GPIO_PIN_SET);
+uint8_t digit1, digit2,digit3,digit4 ;
+//void display2number(int pos,int num){ // ok
+//    digit1 = num / 10;
+//    digit2 = num % 10;
+//	if (digit_index == 0) {
+//		HAL_GPIO_WritePin(GPIOB, digit_pins_2[pos], GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB, digit_pins_1[pos], GPIO_PIN_SET);
+//		display1(digit1);
+//	} else {
+//		HAL_GPIO_WritePin(GPIOB, digit_pins_1[pos], GPIO_PIN_RESET);
+//		HAL_GPIO_WritePin(GPIOB, digit_pins_2[pos], GPIO_PIN_SET);
+//		display1(digit2);
+//	}
+//
+//	digit_index=!digit_index;
+//}
+void display2number(int num1,int num2){ // ok
+    digit1 = num1 / 10;
+    digit2 = num1 % 10;
+    digit3 = num2 / 10;
+    digit4 = num2 % 10;
+    if (num1 < 10) digit1 = 0;
+        if (num2 < 10) digit3 = 0;
+        HAL_GPIO_WritePin(GPIOB, digit_pins_1[0], GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOB, digit_pins_2[0], GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOB, digit_pins_1[1], GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOB, digit_pins_2[1], GPIO_PIN_RESET);
+    switch (digit_index){
+    case 1:
+		HAL_GPIO_WritePin(GPIOB, digit_pins_2[0], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_1[0], GPIO_PIN_SET);
 		display1(digit1);
-	} else {
-		HAL_GPIO_WritePin(GPIOB, digit_pins_1[pos], GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOB, digit_pins_2[pos], GPIO_PIN_SET);
+    	break;
+    case 2:
+		HAL_GPIO_WritePin(GPIOB, digit_pins_1[0], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_2[0], GPIO_PIN_SET);
 		display1(digit2);
-	}
-
-	digit_index=!digit_index;
-    //HAL_Delay(30);
+        	break;
+    case 3:
+		HAL_GPIO_WritePin(GPIOB, digit_pins_2[1], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_1[1], GPIO_PIN_SET);
+		display1(digit3);
+        	break;
+    case 4:
+		HAL_GPIO_WritePin(GPIOB, digit_pins_1[1], GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, digit_pins_2[1], GPIO_PIN_SET);
+		display1(digit4);
+        	break;
+    default:
+        	break;
+    }
+    digit_index++;
+	if (digit_index >4) digit_index=1;
 }
-//void countdown(int pos){
+void countdown(int numnum){
+	    display2number(0,numnum--);
+	    if(numnum<=0) numnum =19;
+}
+int num1, num2;
+//void countdown(int time){
 //	digit1 = time / 10;
 //	    digit2 = time % 10;
 //		int idx = (1-pos);
@@ -153,30 +194,11 @@ void display2number(int pos,int num){ // ok
 //			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
 //			display1(digit2);
 //
-//
+//		}
 //		digit_index++;
 //	    if (digit_index >= 2) digit_index = 0;
 //
 //}
-int num1, num2;
-void countdown(int pos){
-	digit1 = time / 10;
-	    digit2 = time % 10;
-		int idx = (1-pos);
-		if (digit_index == 0) {
-			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_SET);
-			HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_RESET);
-			display1(digit1);
-		} else {
-			HAL_GPIO_WritePin(GPIOB, digit_pins_2[idx], GPIO_PIN_SET);
-			HAL_GPIO_WritePin(GPIOB, digit_pins_1[idx], GPIO_PIN_RESET);
-			display1(digit2);
-
-		}
-		digit_index++;
-	    if (digit_index >= 2) digit_index = 0;
-
-}
 int cntred1 = 5;
 
 void display1_run(void) {
@@ -198,8 +220,7 @@ void runled7(){
 //updatetime(20);
 //	button_reading();
 //	display2number(1,19);
-	display1_run();
-	HAL_Delay(500);
+	countdown(19);
 
 //	if(button_reading()==1){
 //		led_red_blink();

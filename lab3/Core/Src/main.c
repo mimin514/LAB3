@@ -88,21 +88,73 @@ void timerRun(void)
         }
     }
 }
+int numnn=19;
+const uint16_t digit_pins[] = {GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6};
+#define MAX_LED 4
+int led_buffer[MAX_LED];
+int digit_indexxx = 0;
+void update7SEG(int index) {
+	    switch (index) {
+	        case 0:
+	            display1(led_buffer[0]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 0);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 1);
+	            break;
+	        case 1:
+	            display1(led_buffer[1]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 0);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 1);
+	            break;
+	        case 2:
+	            display1(led_buffer[2]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 0);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 1);
+	            break;
+	        case 3:
+	            display1(led_buffer[3]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 0);
+	            break;
+	        default:
+	            break;
+	    }
+	}
+int num11=11,num22=15;
+void updateClockBuffer(void)
+{
+    led_buffer[0] = num11/10;
+    led_buffer[1] = num11%10;
+    led_buffer[2] = num22/10;
+    led_buffer[3] = num22%10;
+}
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
 	        timerRun();
 
-// 	        if (timer_flag[0] == 1){
-// 	        	//button_reading();
-// 	            setTimer(0, 1000);
-// 	        }
-//
+	  	  if (timer_flag[1] == 1){
+	  		display2number(num11, num22);
+	  		  setTimer(1,10);
+	  	  }
 
-// 	       if (timer_flag[2] == 1){
-// 	    	 // counttime();
-// 	        	            setTimer(2,1000);
-// 	        	        }
+	  	if (timer_flag[3] == 1) {
+			num11--;
+			num22--;
+
+			if (num11 < 0) num11 = 19;
+			if (num22 < 0) num22 = 17;
+			//updateClockBuffer();
+			setTimer(3, 1000);  // Reset timer for next second
+		}
+
 	    }
 	}
 
@@ -143,20 +195,22 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer(1,5);
-  //setTimer(2,1000);
+  setTimer(1,10);
+  setTimer(2,6);
+  setTimer(3,1000);
+  setTimer(4,250);
+ // int abc=11;
   while (1)
   {
 	  //fsm_for_input_processing();
-	  //runled7();
-//	  HAL_Delay(250);
-//	  //button_reading();
-//	  display2number(1,20);
-	  if (timer_flag[1] == 1){
-	  	        	display2number(1,12);
-	  	            setTimer(1,5);
-	  	        }
-    /* USER CODE END WHILE */
+////	  //runled7();
+//  HAL_Delay(5);
+//////	  //button_reading();
+//	 display2number(15,97);
+////	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 1);
+//	  display1(9);
+//	  if(abc<=0) abc=12;
+//    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }

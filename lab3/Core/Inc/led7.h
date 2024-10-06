@@ -17,9 +17,10 @@ void display_2_1to9(void);
 
 void display1_run(void);
 void display2_run(void);
-
+void update7SEG(int index);
 void runled7();
 void selectpos(int pos);
-void display2number(int pos,int num);
+void display2number(int num1,int num2);
+
 void display_time(int num);
 #endif /* INC_LED7_H_ */
