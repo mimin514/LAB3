@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  00020024  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00008532  00000000  00000000  0002004d  2**0
+ 12 .debug_info   000084e8  00000000  00000000  0002004d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000016c1  00000000  00000000  0002857f  2**0
+ 13 .debug_abbrev 000016a7  00000000  00000000  00028535  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000988  00000000  00000000  00029c40  2**3
+ 14 .debug_aranges 00000978  00000000  00000000  00029be0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 000008d0  00000000  00000000  0002a5c8  2**3
+ 15 .debug_ranges 000008c0  00000000  00000000  0002a558  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000012c1  00000000  00000000  0002ae98  2**0
+ 16 .debug_macro  000012c1  00000000  00000000  0002ae18  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00009e9e  00000000  00000000  0002c159  2**0
+ 17 .debug_line   00009e55  00000000  00000000  0002c0d9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000821db  00000000  00000000  00035ff7  2**0
+ 18 .debug_str    000821be  00000000  00000000  00035f2e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000b81d2  2**0
+ 19 .comment      00000050  00000000  00000000  000b80ec  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000026f8  00000000  00000000  000b8224  2**2
+ 20 .debug_frame  000026b8  00000000  00000000  000b813c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -869,10 +869,6 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
  80006fa:	689b      	ldr	r3, [r3, #8]
  80006fc:	2b01      	cmp	r3, #1
  80006fe:	d104      	bne.n	800070a <HAL_TIM_PeriodElapsedCallback+0x4a>
-//	  		                countabc = 0;  // Reset count for the next cycle
-//	  		            }
-//
-//	  		            countabc++;
 
 	  				setTimer(2, 500);
  8000700:	f44f 71fa 	mov.w	r1, #500	; 0x1f4

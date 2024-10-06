@@ -1,4 +1,2 @@
 ../Core/Src/led7.c:11:6:display1	16	static
-../Core/Src/led7.c:110:6:display1to9	8	static
-../Core/Src/led7.c:115:6:selectnum	16	static
-../Core/Src/led7.c:127:6:display2number	16	static
+../Core/Src/led7.c:119:6:display2number	16	static
