@@ -203,3 +203,45 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-06 12:08:08.898
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2024-10-06 22:50:14.245 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-10-06 22:58:37.398
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-10-06 22:58:46.167
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-10-06 22:58:46.334
+!MESSAGE Log4j initialized with config file D:\BKU\Year 3\VXL-VDK\git3\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-06 22:59:02.446
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-10-06 23:18:19.873
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+!SESSION 2024-10-06 23:18:45.434 -----------------------------------------------
+eclipse.buildId=Version 1.10.1
+java.version=11.0.14.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-10-06 23:19:20.645
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-10-06 23:19:20.947
+!MESSAGE Log4j initialized with config file D:\BKU\Year 3\VXL-VDK\git3\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-06 23:19:49.956
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-06 23:32:12.257
+!MESSAGE Indexed 'lab3' (24 sources, 85 headers) in 7.08 sec: 4,979 declarations; 30,660 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0056%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-06 23:32:30.812
+!MESSAGE Indexed 'lab3' (24 sources, 85 headers) in 5.5 sec: 4,979 declarations; 30,660 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0056%)

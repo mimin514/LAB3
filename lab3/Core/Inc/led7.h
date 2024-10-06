@@ -24,4 +24,7 @@ void display2number(int num1,int num2);
 void led_run(void);
 void display_time(int num);
 void showstate(int num1,int num2);
+void updatemode(int modee);
+void normalstate();
+void timeledlight();
 #endif /* INC_LED7_H_ */

@@ -127,16 +127,8 @@ void update7SEG(int index) {
 	            break;
 	    }
 	}
-int num11,num22;
-void updateClockBuffer(void)
-{
-    led_buffer[0] = num11/10;
-    led_buffer[1] = num11%10;
-    led_buffer[2] = num22/10;
-    led_buffer[3] = num22%10;
-}
-	int cntred = 5, cntye = 3, cntgr = 5;
-	int cntred2 = 5, cntye2 = 3, cntgr2 = 5;
+
+
 	int countabc=0;
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
@@ -144,67 +136,15 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	        timerRun();
 
 	  	  if (timer_flag[1] == 1){
-	  		display2number(num11, num22);
+	  		timeledlight();
 	  		  setTimer(1,10);
 	  	  }
 	  	if (timer_flag[2] == 1) {
-
+	  		//button_reading();
 	  				setTimer(2, 500);
 	  			}
 	  	if (timer_flag[3] == 1) {
-
-			if (cntred >= 0) {
-				num11=cntred--;
-                HAL_GPIO_WritePin(GPIOB, red2_Pin, GPIO_PIN_SET);   // Bật đèn đỏ
-                HAL_GPIO_WritePin(GPIOB, yellow2_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOB, green2_Pin, GPIO_PIN_RESET);
-			}
-			else if (cntgr >= 0)  	{
-                HAL_GPIO_WritePin(GPIOB, green2_Pin, GPIO_PIN_SET);  // Bật đèn xanh
-                HAL_GPIO_WritePin(GPIOB, red2_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOB, yellow2_Pin, GPIO_PIN_RESET);
-
-				num11=cntgr--;
-			}
-			else if (cntye >= 0) 	{
-				num11=cntye--;
-                HAL_GPIO_WritePin(GPIOB, yellow2_Pin, GPIO_PIN_SET); // Bật đèn vàng
-                HAL_GPIO_WritePin(GPIOB, red2_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOB, green2_Pin, GPIO_PIN_RESET);
-
-			}
-
-			if (cntgr2 >= 0)  	{
-				num22=cntgr2--;
-                HAL_GPIO_WritePin(GPIOB, green1_Pin, GPIO_PIN_SET);  // Bật đèn xanh
-                HAL_GPIO_WritePin(GPIOB, red1_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOB, yellow1_Pin, GPIO_PIN_RESET);
-			}
-			else if (cntye2 >= 0) 	{
-				num22=cntye2--;
-                HAL_GPIO_WritePin(GPIOB, yellow1_Pin, GPIO_PIN_SET); // Bật đèn vàng
-                HAL_GPIO_WritePin(GPIOB, red1_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOB, green1_Pin, GPIO_PIN_RESET);
-			}
-			else if (cntred2 >= 0) 	{
-				num22=cntred2--;
-                HAL_GPIO_WritePin(GPIOB, red1_Pin, GPIO_PIN_SET);   // Bật đèn đỏ
-                HAL_GPIO_WritePin(GPIOB, yellow1_Pin, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOB, green1_Pin, GPIO_PIN_RESET);
-			}
-
-			if (cntred2 < 0 && cntgr2 < 0 && cntye2 < 0) {
-				cntred2 = 5;
-				cntgr2 = 5;
-				cntye2 = 3;
-			}
-
-			if (cntred < 0 && cntgr < 0 && cntye < 0) {
-				cntred = 5;
-				cntgr = 5;
-				cntye = 3;
-			}
-
+	  		 normalstate();
 			setTimer(3, 500);
 		}
 
@@ -258,13 +198,17 @@ int main(void)
 //		led_run();
 //	  //fsm_for_input_processing();
 //////	  //runled7();
-//  HAL_Delay(1000);
-//////	  //button_reading();
-//	 display2number(15,97);
-////	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 1);
+	  //HAL_GPIO_WritePin(GPIOB, mode_Pin, 1);
+ // HAL_Delay(1000);
+////////	  //button_reading();
+////	 display2number(15,97);
+//	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 //	  display1(9);
+	  //HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, 0);
 //	  if(abc<=0) abc=12;
-//    /* USER CODE END WHILE */
+
+	  fsm_for_input_processing();button_reading();
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
@@ -373,7 +317,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, red1_Pin|yellow1_Pin|green1_Pin|red2_Pin
                           |yellow2_Pin|green2_Pin|EN1_Pin|EN2_Pin
-                          |EN3_Pin|EN4_Pin, GPIO_PIN_RESET);
+                          |EN3_Pin|EN4_Pin|mode_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : SEG_0_Pin SEG_1_Pin SEG_2_Pin SEG_3_Pin
                            SEG_4_Pin SEG_5_Pin SEG_6_Pin SEG_7_Pin
@@ -394,10 +338,10 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : red1_Pin yellow1_Pin green1_Pin red2_Pin
                            yellow2_Pin green2_Pin EN1_Pin EN2_Pin
-                           EN3_Pin EN4_Pin */
+                           EN3_Pin EN4_Pin mode_Pin */
   GPIO_InitStruct.Pin = red1_Pin|yellow1_Pin|green1_Pin|red2_Pin
                           |yellow2_Pin|green2_Pin|EN1_Pin|EN2_Pin
-                          |EN3_Pin|EN4_Pin;
+                          |EN3_Pin|EN4_Pin|mode_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
