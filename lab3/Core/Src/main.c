@@ -135,7 +135,9 @@ void updateClockBuffer(void)
     led_buffer[2] = num22/10;
     led_buffer[3] = num22%10;
 }
-
+	int cntred = 5, cntye = 3, cntgr = 5;
+	int cntred2 = 5, cntye2 = 3, cntgr2 = 5;
+	int countabc=0;
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
@@ -145,18 +147,65 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 	  		display2number(num11, num22);
 	  		  setTimer(1,10);
 	  	  }
+	  	if (timer_flag[2] == 1) {
 
+	  				setTimer(2, 500);
+	  			}
 	  	if (timer_flag[3] == 1) {
-//			num11--;
-//			num22--;
-//
-//			if (num11 < 0) num11 = 19;
-//			if (num22 < 0) num22 = 17;
-	  		//showstate(num11, num22);
 
+			if (cntred >= 0) {
+				num11=cntred--;
+                HAL_GPIO_WritePin(GPIOB, red2_Pin, GPIO_PIN_SET);   // Bật đèn đỏ
+                HAL_GPIO_WritePin(GPIOB, yellow2_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOB, green2_Pin, GPIO_PIN_RESET);
+			}
+			else if (cntgr >= 0)  	{
+                HAL_GPIO_WritePin(GPIOB, green2_Pin, GPIO_PIN_SET);  // Bật đèn xanh
+                HAL_GPIO_WritePin(GPIOB, red2_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOB, yellow2_Pin, GPIO_PIN_RESET);
 
+				num11=cntgr--;
+			}
+			else if (cntye >= 0) 	{
+				num11=cntye--;
+                HAL_GPIO_WritePin(GPIOB, yellow2_Pin, GPIO_PIN_SET); // Bật đèn vàng
+                HAL_GPIO_WritePin(GPIOB, red2_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOB, green2_Pin, GPIO_PIN_RESET);
 
-			setTimer(3, 1000);
+			}
+
+			if (cntgr2 >= 0)  	{
+				num22=cntgr2--;
+                HAL_GPIO_WritePin(GPIOB, green1_Pin, GPIO_PIN_SET);  // Bật đèn xanh
+                HAL_GPIO_WritePin(GPIOB, red1_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOB, yellow1_Pin, GPIO_PIN_RESET);
+			}
+			else if (cntye2 >= 0) 	{
+				num22=cntye2--;
+                HAL_GPIO_WritePin(GPIOB, yellow1_Pin, GPIO_PIN_SET); // Bật đèn vàng
+                HAL_GPIO_WritePin(GPIOB, red1_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOB, green1_Pin, GPIO_PIN_RESET);
+			}
+			else if (cntred2 >= 0) 	{
+				num22=cntred2--;
+                HAL_GPIO_WritePin(GPIOB, red1_Pin, GPIO_PIN_SET);   // Bật đèn đỏ
+                HAL_GPIO_WritePin(GPIOB, yellow1_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOB, green1_Pin, GPIO_PIN_RESET);
+			}
+
+			if (cntred2 < 0 && cntgr2 < 0 && cntye2 < 0) {
+				cntred2 = 5;
+				cntgr2 = 5;
+				cntye2 = 3;
+			}
+
+			if (cntred < 0 && cntgr < 0 && cntye < 0) {
+				cntred = 5;
+				cntgr = 5;
+				cntye = 3;
+			}
+
+			setTimer(3, 500);
 		}
 
 	    }
@@ -200,15 +249,16 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer(1,10);
-  setTimer(2,6);
+  setTimer(2,1000);
   setTimer(3,1000);
   setTimer(4,250);
  // int abc=11;
   while (1)
   {
-	  //fsm_for_input_processing();
-////	  //runled7();
-//  HAL_Delay(5);
+//		led_run();
+//	  //fsm_for_input_processing();
+//////	  //runled7();
+//  HAL_Delay(1000);
 //////	  //button_reading();
 //	 display2number(15,97);
 ////	  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, 1);
