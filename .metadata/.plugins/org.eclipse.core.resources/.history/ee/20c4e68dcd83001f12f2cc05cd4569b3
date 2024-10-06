@@ -199,6 +199,7 @@ int num1, num2;
 //	    if (digit_index >= 2) digit_index = 0;
 //
 //}
+int cntred1 = 5;
 int red_time = 15;   // Thời gian đèn đỏ (giây)
 int yellow_time = 6; // Thời gian đèn vàng (giây)
 int green_time = 18; // Thời gian đèn xanh (giây)
@@ -255,30 +256,25 @@ void displayTrafficCountdown() {
 //            break;
 //    }
 }
-int cntred = 5, cntye = 3, cntgr = 5;
-int cntred2 = 5, cntye2 = 3, cntgr2 = 5;
-void showstate(int num11, int num22){
-	if (cntred >= 0) num11=cntred--;
-	else if (cntgr >= 0)  	num11=cntgr--;
-	else if (cntye >= 0) 	num11=cntye--;
-
-	if (cntgr2 >= 0)  	num22=cntgr2--;
-	else if (cntye2 >= 0) 	num22=cntye2--;
-	else if (cntred2 >= 0) 	num22=cntred2--;
-
-	if (cntred2 < 0 && cntgr2 < 0 && cntye2 < 0) {
-	cntred2 = 5;
-	cntgr2 = 5;
-	cntye2 = 3;
-	}
-
-	if (cntred < 0 && cntgr < 0 && cntye < 0) {
-	cntred = 5;
-	cntgr = 5;
-	cntye = 3;
-	}
+void showstate(int num1, int num2){
+	trafficLightCounter();
+	num1=current_time;
+	num2=current_time;
+	display2number(num1, num2);
 }
+void display1_run(void) {
+	digit1 = cntred1 / 10;
+		    digit2 = cntred1 % 10;
+    	 if (cntred1 >= 0) 	{
+    		 display2number(1,cntred1);
+    	 }
 
+    	 cntred1--;
+    if (cntred1 < 0 ) {
+        cntred1 = 5;
+
+    }
+}
 
 void runled7(){
 	//selectpos(1);

@@ -135,7 +135,8 @@ void updateClockBuffer(void)
     led_buffer[2] = num22/10;
     led_buffer[3] = num22%10;
 }
-
+	int cntred = 5, cntye = 3, cntgr = 5;
+	int cntred2 = 5, cntye2 = 3, cntgr2 = 5;
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){

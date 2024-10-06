@@ -23,5 +23,5 @@ void selectpos(int pos);
 void display2number(int num1,int num2);
 
 void display_time(int num);
-void showstate(int num1,int num2);
+void showstate();
 #endif /* INC_LED7_H_ */

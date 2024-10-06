@@ -3,5 +3,7 @@
 ../Core/Src/led7.c:115:6:selectnum	16	static
 ../Core/Src/led7.c:141:6:display2number	16	static
 ../Core/Src/led7.c:179:6:countdown	16	static
-../Core/Src/led7.c:204:6:display1_run	8	static
-../Core/Src/led7.c:218:6:runled7	8	static
+../Core/Src/led7.c:210:6:trafficLightCounter	4	static
+../Core/Src/led7.c:233:6:displayTrafficCountdown	8	static
+../Core/Src/led7.c:260:6:showstate	16	static
+../Core/Src/led7.c:283:6:runled7	8	static

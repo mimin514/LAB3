@@ -127,7 +127,7 @@ void update7SEG(int index) {
 	            break;
 	    }
 	}
-int num11,num22;
+int num11=11,num22=15;
 void updateClockBuffer(void)
 {
     led_buffer[0] = num11/10;
@@ -135,7 +135,6 @@ void updateClockBuffer(void)
     led_buffer[2] = num22/10;
     led_buffer[3] = num22%10;
 }
-
 void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM2){
@@ -152,10 +151,7 @@ void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
 //
 //			if (num11 < 0) num11 = 19;
 //			if (num22 < 0) num22 = 17;
-	  		//showstate(num11, num22);
-
-
-
+			showstate();
 			setTimer(3, 1000);
 		}
 
