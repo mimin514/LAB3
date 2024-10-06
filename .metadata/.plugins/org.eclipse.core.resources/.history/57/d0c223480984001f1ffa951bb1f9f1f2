@@ -10,7 +10,7 @@
  #include "main.h"
  #include "input_reading.h"
  #include "led7.h"
- enum ButtonState{BUTTON_RELEASED, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND} ;
+ enum ButtonState{BUTTON_RELEASED=0, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND} ;
  enum ButtonState buttonState = BUTTON_RELEASED;
 // void fsm_for_input_processing(void){
 //	 switch(buttonState){
