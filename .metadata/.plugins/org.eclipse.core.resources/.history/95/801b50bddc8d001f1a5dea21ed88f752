@@ -10,7 +10,7 @@
 #include "led_display.h"
 int count=0,cnt=0;
 void led_red_blink(){
-    HAL_GPIO_WritePin(GPIOB, green1_Pin|green2_Pin|yellow1_Pin|yellow2_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10 | GPIO_PIN_13 | GPIO_PIN_11 | GPIO_PIN_14, GPIO_PIN_RESET);
 	HAL_GPIO_TogglePin(red1_GPIO_Port, red1_Pin);
 	HAL_GPIO_TogglePin(red2_GPIO_Port, red2_Pin);
 }
