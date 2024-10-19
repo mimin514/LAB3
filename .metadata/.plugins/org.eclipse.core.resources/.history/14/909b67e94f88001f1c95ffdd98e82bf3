@@ -1,0 +1,266 @@
+/*
+ * input_processing.c
+ *
+ *  Created on: Sep 30, 2024
+ *      Author: User
+ */
+
+
+
+ #include "main.h"
+ #include "input_reading.h"
+ #include "led7.h"
+ #include "led_display.h"
+#include "timer.h"
+ enum ButtonState{BUTTON_RELEASED, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND} ;
+ enum ButtonState buttonState = BUTTON_RELEASED;
+// void fsm_for_input_processing(void){
+//	 switch(buttonState){
+//		 case BUTTON_RELEASED:
+//			 if(is_button_pressed(0)){
+//				 buttonState = BUTTON_PRESSED;
+//				 //INCREASE VALUE OF PORT A BY ONE UNIT
+//			 }
+//			 break;
+//		 case BUTTON_PRESSED:
+//			 if(!is_button_pressed(0)){
+//				 buttonState = BUTTON_RELEASED;
+//
+//			 } else {
+//				 if(is_button_pressed_1s(0)){
+//					 buttonState = BUTTON_PRESSED_MORE_THAN_1_SECOND;
+//				 }
+//			 }
+//			 break;
+//		 case BUTTON_PRESSED_MORE_THAN_1_SECOND:
+//			 if(!is_button_pressed(0)){
+//				 buttonState = BUTTON_RELEASED;
+//			 }
+//			 //todo
+//			 //button_reading();
+//			 break;
+//	 }
+// }
+
+
+
+
+
+
+
+
+
+
+
+#define NUM_TIMERS 10  // Number of timers you want to handle
+#define TICK 10
+int timer_flag[NUM_TIMERS];  // Timer flags for each timer
+int timer_counter[NUM_TIMERS];  // Timer counters for each timer
+
+void setTimer(int timer_id, int duration)
+{
+	if (timer_id >= 0 && timer_id < NUM_TIMERS)
+	    {
+	        timer_counter[timer_id] = duration / TICK;
+	        timer_flag[timer_id] = 0;
+	    }
+}
+void timerRun(void)
+{
+    for (int i = 0; i < NUM_TIMERS; i++)
+    {
+        if (timer_counter[i] >= 0)
+        {
+            timer_counter[i]--;  // Decrease the counter
+
+            if (timer_counter[i] <= 0)
+            {
+                timer_flag[i] = 1;  // Timer expired
+                // Optional: Trigger a specific action for timer expiration
+            }
+        }
+    }
+}
+int numnn=19;
+const uint16_t digit_pins[] = {GPIO_PIN_3, GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6};
+#define MAX_LED 4
+int led_buffer[MAX_LED];
+int digit_indexxx = 0;
+void update7SEG(int index) {
+	    switch (index) {
+	        case 0:
+	            display1(led_buffer[0]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 0);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 1);
+	            break;
+	        case 1:
+	            display1(led_buffer[1]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 0);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 1);
+	            break;
+	        case 2:
+	            display1(led_buffer[2]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 0);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 1);
+	            break;
+	        case 3:
+	            display1(led_buffer[3]);
+				HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+				HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+				HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+				HAL_GPIO_WritePin(EN4_GPIO_Port, EN4_Pin, 0);
+	            break;
+	        default:
+	            break;
+	    }
+	}
+
+
+	int countabc=0;
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM2){
+	        timerRun();
+
+	  	  if (timer_flag[1] == 1){
+	  		timeledlight();
+	  		  setTimer(1,10);
+	  	  }
+	  	if (timer_flag[2] == 1) {
+	  		button_reading();
+	  				setTimer(2, 10);
+	  			}
+	  	if (timer_flag[3] == 1) {
+	  		// normalstate();
+			setTimer(3, 500);
+		}
+
+	    }
+	}
+void handle_mode(uint8_t mode) {
+    switch (mode) {
+        case 1:
+       	 if(timer_flag[5]==1){
+				normalstate();
+			 setTimer(5, 500);}
+            break;
+
+       	 case 2:
+       		if(timer_flag[6]==1){
+       			led_red_blink();
+
+       		modify_red_duration();
+       		setTimer(6, 500);}
+
+            break;
+        case 3:
+
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|GPIO_PIN_13, 0);
+
+        	if(timer_flag[7]==1){
+        	       			led_yellow_blink();
+        	       					 setTimer(7, 500);}
+       		//modify_yellow_duration();
+
+            break;
+        case 4:
+        	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11|GPIO_PIN_14, 0);
+        	if(timer_flag[8]==1){
+        	       			led_green_blink();
+        	       					 setTimer(8, 500);}
+       		//modify_green_duration();
+
+            break;
+
+    }
+}
+ int timer_flagg[10];
+ unsigned char displayed_value = 1;
+ unsigned char valluebutton2 = 1;
+
+
+
+
+ void fsm_for_input_processing(void) {
+		if (is_button_pressed(3)) {
+		        displayed_value=1;
+		        updatemode(displayed_value);handle_mode(displayed_value);
+		        return;
+		    }
+	 switch (button4State) {
+	         case BUTTON_RELEASED:
+
+	             if (is_button_pressed(3)) { // Nút 1 được nhấn
+	                              button4State = BUTTON_PRESSED;
+	                              // Tăng giá trị của PORT A mỗi lần nhấn
+	                          }
+	             break;
+
+	         case BUTTON_PRESSED:
+	        	 if (!is_button_pressed(3)) { // Nếu nút 1 không còn được nhấn
+	        	                  button4State = BUTTON_RELEASED;
+
+	        	                  displayed_value=1;
+	        	                  updatemode(displayed_value);
+	        	              }
+	        	 else {
+	        	                  if (is_button_pressed_1s(0)) { // Kiểm tra nếu nút 1 được nhấn lâu hơn 1 giây
+	        	                      buttonState = BUTTON_PRESSED_MORE_THAN_1_SECOND;
+	        	                  }
+	        	              }
+	        	              break;
+	         case BUTTON_PRESSED_MORE_THAN_1_SECOND:
+	                      if (!is_button_pressed(3)) { // Nếu nút 1 không còn được nhấn
+	                          button4State = BUTTON_RELEASED;
+	                      }
+	                      // TODO: Thực hiện chức năng khi nút 1 được nhấn hơn 1 giây
+	                      break;
+	 }
+     switch (buttonState) {
+         case BUTTON_RELEASED:
+
+             if (is_button_pressed(0)) { // Nút 1 được nhấn
+                 buttonState = BUTTON_PRESSED;
+                 // Tăng giá trị của PORT A mỗi lần nhấn
+             }
+
+
+             break;
+
+         case BUTTON_PRESSED:
+
+             if (!is_button_pressed(0)) { // Nếu nút 1 không còn được nhấn
+                 buttonState = BUTTON_RELEASED;
+
+                 displayed_value++;
+
+				  if (displayed_value > 4) { // Vòng lại nếu vượt quá 4
+					  displayed_value = 1;
+				  }
+
+                 updatemode(displayed_value);
+             } else {
+                 if (is_button_pressed_1s(0)) { // Kiểm tra nếu nút 1 được nhấn lâu hơn 1 giây
+                     buttonState = BUTTON_PRESSED_MORE_THAN_1_SECOND;
+                 }
+             }
+             break;
+
+         case BUTTON_PRESSED_MORE_THAN_1_SECOND:
+             if (!is_button_pressed(0)) { // Nếu nút 1 không còn được nhấn
+                 buttonState = BUTTON_RELEASED;
+             }
+             // TODO: Thực hiện chức năng khi nút 1 được nhấn hơn 1 giây
+             break;
+     }
+    	 handle_mode(displayed_value);
+
+
+ }
+

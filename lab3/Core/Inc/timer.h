@@ -11,4 +11,7 @@
 
 void setTimer(int timer_id, int duration);
 void timerRun(void);
+
+
+void update_handlemode();
 #endif /* INC_TIMER_H_ */

@@ -9,8 +9,14 @@
 #define INC_LED_DISPLAY_H_
 
 #include "main.h"
-void led_red_blink();
-void led_yellow_blink();
-void led_green_blink();
+void updatemode(int modee);
+void display2number(int num1,int num2);
+
+void normalstate();
+void timeledlight();
+
+void modify_red_duration();
+void modify_yellow_duration();
+void modify_green_duration();
 
 #endif /* INC_LED_DISPLAY_H_ */

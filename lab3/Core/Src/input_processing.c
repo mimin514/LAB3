@@ -5,76 +5,68 @@
  *      Author: User
  */
 
-
-
  #include "main.h"
  #include "input_reading.h"
- #include "led7.h"
+ #include "led_display.h"
+#include "timer.h"
  enum ButtonState{BUTTON_RELEASED, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND} ;
  enum ButtonState buttonState = BUTTON_RELEASED;
-// void fsm_for_input_processing(void){
-//	 switch(buttonState){
-//		 case BUTTON_RELEASED:
-//			 if(is_button_pressed(0)){
-//				 buttonState = BUTTON_PRESSED;
-//				 //INCREASE VALUE OF PORT A BY ONE UNIT
-//			 }
-//			 break;
-//		 case BUTTON_PRESSED:
-//			 if(!is_button_pressed(0)){
-//				 buttonState = BUTTON_RELEASED;
-//
-//			 } else {
-//				 if(is_button_pressed_1s(0)){
-//					 buttonState = BUTTON_PRESSED_MORE_THAN_1_SECOND;
-//				 }
-//			 }
-//			 break;
-//		 case BUTTON_PRESSED_MORE_THAN_1_SECOND:
-//			 if(!is_button_pressed(0)){
-//				 buttonState = BUTTON_RELEASED;
-//			 }
-//			 //todo
-//			 //button_reading();
-//			 break;
-//	 }
-// }
- unsigned char displayed_value = 1;
- void fsm_for_input_processing(void) {
-     switch (buttonState) {
-         case BUTTON_RELEASED:
-        	 updatemode(displayed_value);
-             if (is_button_pressed(0)) { // Nút 1 được nhấn
-                 buttonState = BUTTON_PRESSED;
-                 // Tăng giá trị của PORT A mỗi lần nhấn
-                 displayed_value++;
-                 if (displayed_value > 4) { // Vòng lại nếu vượt quá 4
-                     displayed_value = 1;
-                 }
-             } else if (is_button_pressed(1)) { // Nút 2 được nhấn
-                 displayed_value = 5; // Hiển thị số 5
-             } else if (is_button_pressed(2)) { // Nút 3 được nhấn
-                 displayed_value = 6; // Hiển thị số 6
-             }
+ enum ButtonState button4State = BUTTON_RELEASED;
 
-             break;
 
-         case BUTTON_PRESSED:
-             if (!is_button_pressed(0)) { // Nếu nút 1 không còn được nhấn
-                 buttonState = BUTTON_RELEASED;
-             } else {
-                 if (is_button_pressed_1s(0)) { // Kiểm tra nếu nút 1 được nhấn lâu hơn 1 giây
-                     buttonState = BUTTON_PRESSED_MORE_THAN_1_SECOND;
-                 }
-             }
-             break;
+uint8_t modemode = 1;
+uint8_t redDuration = 1;
 
-         case BUTTON_PRESSED_MORE_THAN_1_SECOND:
-             if (!is_button_pressed(0)) { // Nếu nút 1 không còn được nhấn
-                 buttonState = BUTTON_RELEASED;
-             }
-             // TODO: Thực hiện chức năng khi nút 1 được nhấn hơn 1 giây
-             break;
-     }
+void handle_mode(void) {
+	switch (modemode) {
+		case 1:
+			normalstate();
+			break;
+		case 2:
+			modify_red_duration();
+			break;
+		case 3:
+			modify_yellow_duration();
+			break;
+		case 4:
+			modify_green_duration();
+			break;
+	}
 
- }
+}
+void fsm_for_input_processing(void) {
+    switch (buttonState) {
+        case BUTTON_RELEASED:
+            if (is_button_pressed(0)) {  // button1
+                buttonState = BUTTON_PRESSED;
+            }
+
+            if (is_button_pressed(3)) {  // button4
+                button4State = BUTTON_PRESSED;
+                modemode = 1;
+                updatemode(modemode);
+            }
+            break;
+
+        case BUTTON_PRESSED:
+        	if (!is_button_pressed(0)) {  // Nút 1 không còn được nhấn
+				buttonState = BUTTON_RELEASED;
+
+				if (modemode == 1)	modemode = 2;
+				else  				modemode++;
+
+				if (modemode > 4)	modemode = 1;
+
+				updatemode(modemode);  // Hiển thị mode mới
+        	 }
+        	 break;
+
+        case BUTTON_PRESSED_MORE_THAN_1_SECOND:
+            if (!is_button_pressed(0)) {
+                buttonState = BUTTON_RELEASED;
+            }
+            break;
+    }
+
+    update_handlemode();
+}

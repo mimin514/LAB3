@@ -43,16 +43,25 @@ void timerRun(void)
     }
 }
 void update_handlemode(){
-	if (timer_flag[1] == 1){
-		timeledlight();
-		setTimer(1,10);
-	}
-	if (timer_flag[2] == 1) {
-		button_reading();
-			setTimer(2, 10);
-	}
 	if (timer_flag[5] == 1) {
 		handle_mode();
 		setTimer(5, 500);
 	}
 }
+void HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM2){
+	        timerRun();
+
+	  	  if (timer_flag[1] == 1){
+	  		timeledlight();
+	  		  setTimer(1,10);
+	  	  }
+	  	if (timer_flag[2] == 1) {
+	  		button_reading();
+	  				setTimer(2, 10);
+	  			}
+
+
+	    }
+	}
